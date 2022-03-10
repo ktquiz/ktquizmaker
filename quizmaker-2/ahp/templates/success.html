@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<!-- create a variable for name -->
+	<title>success</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link href="{{url_for('static', filename='style.css')}}" rel= 'stylesheet'>
+  <link href=" {{url_for('static' , filename='logoh.jpg')}}" rel="icon" type="image/x-icon">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+</head>
+<body id = 'body' onload='thing("{{ys}}")'>
+	{% if b != False %}
+	<nav id = 'navbar' class="navbar navbar-expand-md justify-content-center">
+		<div class="container-fluid">
+			<ul class="navbar-nav">
+      <li>
+        <a class="navbar-brand" href="/">
+       <img id = "logo" src=" 
+       {{url_for('static' , filename='logoh.jpg')}} "> 
+    </a>
+      <li class=" nav-item ">
+        <a class="nav-link " href="/create ">Create a quiz</a>
+      </li>
+
+        <li class=" nav-item ">
+        <a class="nav-link " href="/take ">Take quiz</a>
+      </li>
+      </li>
+        <li class=" nav-item ">
+        <button class="nav-link btn btn-link "id='lol'   onclick = 'onconfirm()'>Logout</button>
+
+      </li>
+    </ul>
+  </div>
+</nav>
+{% endif %}
+  <!-- if there are messages flash them according to category -->
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    {% for category, message in messages %}
+  <div class="alert alert-{{ category }} alert-dismissible fade show " role="alert ">
+   <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+  {{ message }}
+      </div>
+    {% endfor %}
+  {% endif %}
+{% endwith %}
+<script src='{{url_for("static", filename="thih.js")}}'></script>
+</body>
+<br>
+<p style='text-align:center'>hello {{x}}</p>
+<script>
+ function thing(a) {
+
+       $('body').append(`<br><button type="button" class="btn btn-primary btn-block button" data-bs-toggle="modal" data-bs-target="#mys">
+  view your scores
+</button>
+<div class="modal fade modal-dialogue-scrollable" id="mys">
+  <div class="modal-dialog modal-fullscreen">
+    <div class="modal-content"> 
+      <div class="modal-header">
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+ <table class="table table-bordered table-hover">
+    <thead>
+      <tr>
+        <th class='names'>Quiz:</th>
+        <th class = 'score'>Score:</th>
+      </tr>
+    </thead>
+    <tbody id='mysb'>
+    </tbody>
+      </div>
+</div>
+</div>
+</div><br>`)
+  $.getJSON("/getjson", function(result){
+$.each(result, function(i, field){$('#mysb').append(`<tr><td>${i}</td><td>${field}</td></tr>`)})})
+ 
+   $.getJSON("/getjson1", function(result){$.each(result, function(i, field){
+     $('body').append(`<br><br>`)
+       $('body').append(`<button type="button" class="btn btn-primary btn-block button" data-bs-toggle="modal" data-bs-target="#b${i}">
+  view scores for ${field['name']}
+</button>
+<div class="modal fade modal-dialogue-scrollable" id="b${i}">
+  <div class="modal-dialog modal-fullscreen">
+    <div class="modal-content"> 
+      <div class="modal-header">
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+ <table class="table table-bordered table-hover">
+    <thead>
+      <tr>
+        <th class='names'>Quiz:</th>
+        <th class = 'score'>Score:</th>
+      </tr>
+    </thead>
+    <tbody id='bb${i}'>
+    </tbody>
+      </div>
+</div>
+</div>
+</div>`)
+ let g = JSON.parse(field['score'])
+     console.log(g)
+     let keys = Object.keys(g)
+     for (let index = 0; index < keys.length; index++) {
+       $('#bb'+i).append(`<tr><td>${keys[index]}</td><td>${g[keys[index]]}</td></tr>`)
+     }
+   })})
+ }
+ 
+</script>
+</body>

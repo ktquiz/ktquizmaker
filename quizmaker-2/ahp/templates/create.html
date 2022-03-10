@@ -1,0 +1,135 @@
+{% extends 'base.html' %} {% block title %}Create a quiz{% endblock %} {% block content %}
+<form action='/create' method='POST' id="quiz">
+
+	<div class="mb-3 mt-3" id='container'>
+		<label for='quiz_name' class="container form-label" id = 'quiz_name1'> Quiz name:
+    <input type='quiz_name' class=" form-control" id ="quiz_name" placeholder="quiz name" name="quiz name"  required>  
+  </div>
+<div class="form-check form-switch" id='Retakable'>
+  <input class=" form-check-input" type="checkbox" name="Retakable" value="yes" for='quiz' checked>
+  <label class="form-check-label">Retakable</label>
+  <br>
+  <input class=" form-check-input" type="checkbox" name="Random-order" value="yes" for='quiz' checked>
+  <label class="form-check-label">Randomize question order</label>
+</div>
+
+<div class="qcard mb-3 mt-3 card">
+  <div class='card-body cahrd'>
+  <label for="quantity">Question worth:   </label>
+    <br>
+
+  <input type="number" id="quantity_1" name="quantity_1" min="1" max="100" step="1" value='10' class ='worth'>
+    <label for='quiz_name' class="question form-label" id = 'quiz_question_1' onchange="testing()"> Question type:
+    <select class="form-select mt-3 mb-3" id='q-1' onchange="testing(1)" name='type_1'>
+    <option>Free response</option>
+    <option>Multiple choice</option>
+    <option>True/False</option>
+    </select>
+    <label for='quiz_name' class="question form-label" id = 'quiz_question_1'> Question:
+    <input type='quiz_name' class="question form-control" id ="quiz_question_1" name="question_name1" required>  
+  <div id = 'answer'>
+    <div id= 'fr'>
+        <label for='quiz_name' class="question form-label" > Answer:
+        <input type='quiz_answer' class="question form-control" id ="quiz_answer_11_1" name="question_answer_fr_1">  
+  </div>
+  <div id= 'multiple_1' class='multiple'>
+      <label for='quiz_name' class="question form-label" id = 'hihi' onchange="teset(1)"> Question amount:
+    <select class="form-select mt-3 mb-3" onchange="testing()" id='ammount_selector_1' name='ammount_of_1'>
+    <option>1</option>
+    <option>2</option>
+    <option>3</option>
+    <option>4</option>
+    <option>5</option>
+    <option>6</option>
+    </select>
+    <label for='quiz_name' class="question form-label" id = 'mc1_1' name='mc1_1'> #1:
+    <input type='quiz_answer' class="question form-control" id ="quiz_answer_111" name='mc1_1'>  
+    <label for='quiz_name' class="mc question form-label" id = 'mc2_1' > #2:
+    <input name='mc2_1' type='quiz_answer' class="mc question form-control" id ="quiz_answer_111">  
+    <label for='quiz_name' class="mc question form-label" id = 'mc3_1'> #3:
+    <input name='mc3_1' type='quiz_answer' class="mc question form-control" id ="quiz_answer_111" name="quiz answer">  
+    <label for='quiz_name' class="mc question form-label" id = 'mc4_1'> #4:
+    <input name='mc4_1'type='quiz_answer' class="mc question form-control" id ="quiz_answer_111" name="quiz answer">  
+    <label for='quiz_name' class="mc question form-label" id = 'mc5_1' #5:>
+    <input name='mc5_1' type='quiz_answer' class="mc question form-control" id ="quiz_answer_111" name="quiz answer">  
+    <label for='quiz_name' class="mc question form-label" id = 'mc6_1'name='mc6_1'> #6:
+    <input name='mc6_1' type='quiz_answer' class="mc question form-control" id ="quiz_answer_111" name="quiz answer">  
+  </div>
+  <div id = 'true_1' class='true'>
+    <div class="form-check" id='1'>
+    <input type="radio" class="form-check-input" id="radio1" name="t/f_1" value="True"  name ='true1' checked>True
+    <label class="form-check-label" for="radio1"></label>
+    </div>
+    <div class="form-check" id='2'>
+    <input type="radio" class="form-check-input" id="radio2" name="t/f_1" value="False">False</input>
+    <label class="form-check-label" for="radio2"></label>
+    </div>
+  </div>
+</div>
+</div>
+<button class="buttn btn-outline" type="button" onclick="addd()">+</button> 
+</div>
+
+
+<div class="qcard mb-3 mt-3 card">
+  <div class='card-body cahrd'>
+  <label for="quantity">Question worth:   </label>
+  <br>
+  <input type="number" id="quantity_2" name="quantity_2" min="1" max="100" step="1" value='10' class ='worth'>
+    <label for='quiz_name' class="question form-label" id = 'quiz_question_1' onchange="testing()"> Question type:
+    <select class="form-select mt-3 mb-3" id='q-2' onchange="testing(2)" name='type_2'>
+    <option>Free response</option>
+    <option>Multiple choice</option>
+    <option>True/False</option>
+    </select>
+    <label for='quiz_name' class="question form-label" id = 'quiz_question_1'> Question:
+    <input type='quiz_name' class="question form-control" id ="quiz_question_1" name="question_name2" required>  
+  <div id = 'answer'>
+    <div id= 'fr'>
+        <label for='quiz_name' class="question form-label"> Answer:
+        <input type='quiz_answer' class="question form-control" id ="quiz_answer_11_2" name="question_answer_fr_2" >  
+  </div>
+  <div id= 'multiple_2' class = 'multiple'>
+      <label for='quiz_name' class="question form-label" id = 'hihi' onchange="teset(2)"> Question amount:
+    <select class="form-select mt-3 mb-3" onchange="testing()" id='ammount_selector_2' name='ammount_of_2'>
+    <option>1</option>
+    <option>2</option>
+    <option>3</option>
+    <option>4</option>
+    <option>5</option>
+    <option>6</option>
+    </select>
+    <label for='quiz_name' class="question form-label" id = 'mc1_2' name='mc1_2'> #1:
+    <input type='quiz_answer' class="question form-control" id ="quiz_answer_111" name='mc1_2' name="quiz answer">  
+    <label for='quiz_name' class="mc question form-label" id = 'mc2_2' name='mc2_2' > #2:
+    <input type='quiz_answer' class="mc question form-control" name='mc2_2' id ="quiz_answer_111" name="quiz answer"> 
+    <input type='quiz_answer' class="mc question form-control" name='mc3_2' id ="quiz_answer_111" name="quiz answer">  
+    <label for='quiz_name' class="mcquestion form-label" id = 'mc3_2' name='mc3_2'> #3:
+    <input name='mc4_2' type='quiz_answer' class="mc question form-control" id ="quiz_answer_111" name="quiz answer">  
+    <label for='quiz_name' class="mc question form-label" id = 'mc4_2' name='mc4_2'> #4:
+    <input name='mc4_2' type='quiz_answer' class="mc question form-control" id ="quiz_answer_111" name="quiz answer">  
+    <label for='quiz_name' class="mc question form-label" id = 'mc5_2' name='mc5_2'> #5:
+    <input name='mc5_2' type='quiz_answer' class="mc question form-control" id ="quiz_answer_111" name="quiz answer">  
+    <label for='quiz_name' class="mc question form-label" id = 'mc6_2' name='mc6_2'> #6:
+    <input name='mc6_2' type='quiz_answer' class="mc question form-control" id ="quiz_answer_111" name="quiz answer">  
+  </div>
+  <div id = 'true_2' class='true'>
+    <div class="form-check" id='1'>
+    <input type="radio" class="form-check-input" id="radio1" name="t/f_2" value="True"  checked>True
+    <label class="form-check-label" for="radio1"></label>
+    </div>
+    <div class="form-check" id='2'>
+    <input type="radio" class="form-check-input" id="radio2" name="t/f_2" value="False">False
+    <label class="form-check-label" for="radio2"></label>
+    </div>
+  </div>
+</div>
+</div>
+<button class="buttn btn-outline" type='button' onclick="addd()">+</button>
+</div>
+<div>
+ <button for='quiz' id='submit' type="submit"class="btn btn-outline-primary btn-block">Submit</button>
+</div>
+</form>
+
+{% endblock %}
