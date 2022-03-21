@@ -2,14 +2,6 @@ from flask import Flask
 
 
 # kind of like a gateway for all stuff in the .ahp package
-def create_app():
-    app = Flask('app')
-    app = Flask(__name__)
-    from . import auth_routes  # routes for user authentication
-    from . import quiz_routes
-    app.register_blueprint(auth_routes.auth)  # makes there routes
-    app.register_blueprint(quiz_routes.quiz)
-    return app
 
 
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -237,3 +229,12 @@ def get_data(a):
     t.append(aa)
   c = a.scores
   return [c,json.dumps(t)]
+def create_app():
+    app = Flask('app')
+    app = Flask(__name__)
+    from . import auth_routes  # routes for user authentication
+    from . import quiz_routes
+    app.register_blueprint(auth_routes.auth)  # makes there routes
+    app.register_blueprint(quiz_routes.quiz)
+    return app
+app = create_app()
