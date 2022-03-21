@@ -1,13 +1,11 @@
 from flask import Flask, render_template, request, redirect, url_for, Blueprint, flash
-import ahp, json
+import ahp
+import json
 from flask import session as sssession
 
 key = "6661828b5f94e4bldkjsfajfeiebae79788c477ae6b74f70zzxcxcxcvzxcf182afe054f9c5ba26dbdb36"
 from ahp.auth_routes import check_if_login
-
-app = ahp.create_app()
-
-
+from ahp import app as app
 @app.route('/', methods=["POST", "GET"])
 def home():
     try:
