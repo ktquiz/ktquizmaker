@@ -145,31 +145,40 @@ def getjson2(b):
     print(b)
     questions = []
     questions_mc = []
+    questions_mc1 = []
     d = b[1]
     b = b[0]
+    generic = [
+        'yes', 'no', 'sometimes', 'maybe', '42', 'square root of 42',
+        'why not', 'occassionally', 'none of the above', 'wood', 'stone',
+        'mincraft', 'hi my favorite thing', 'no'
+    ]
+
     for i in b:
         if i.question_type == 'Free response':
             questions.append([i.question, i.question_type, i.id])
         if i.question_type == 'True/False':
             questions.append([i.question, i.question_type, i.id])
         if i.question_type == 'Multiple choice':
-            questions.append([i.question, i.question_type, i.id])
-            questions_mc.append(i.correct_answer)
-            questions_mc.extend(json.loads(i.question_data))
+            questions.append([i.question, i.question_type, i.id,i.correct_answer])
+            questions_mc1.append(i.correct_answer)
+            generic.extend(json.loads(i.question_data))
 
     if d == True:
         shuffle(questions)
 
-    generic = [
-        'yes', 'no', 'sometimes', 'maybe', '42', 'square root of 42',
-        'why not', 'occassionally', 'none of the above', 'wood', 'stone',
-        'mincraft', 'hi my favorite thing', 'no'
-    ]
-    while len(questions_mc) < 7:
-        x = choice(generic)
-        if x not in questions_mc:
-            questions_mc.append(x)
-    shuffle(questions_mc)
+    questions_mc = {}
+    for i in questions:
+      if i[1] == 'Multiple choice':
+        q = []
+        q.append(i[3])
+        while len(q) < 7:
+          x = choice(generic)
+          if x not in q or questions_mc1:
+            q.append(x)
+        shuffle(q)
+        questions_mc[i[2]]=q
+        i[3]='' 
     b=json.dumps({'questions':questions,'questions_mc':questions_mc})
     return b
   
