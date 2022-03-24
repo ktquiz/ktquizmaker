@@ -21,4 +21,4 @@ def home():
 
 app.config['SECRET_KEY'] = key
 
-app.run(host'0.0.0.0', port=55454)
+port=int(os.environ.get("PORT", 55454))
