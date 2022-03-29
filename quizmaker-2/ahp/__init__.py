@@ -230,8 +230,7 @@ def get_data(a):
   c = a.scores
   return [c,json.dumps(t)]
 def create_app():
-    app = Flask('app')
-    app = Flask(__name__)
+    app = Flask(__name__, instance_relative_config=True)
     from . import auth_routes  # routes for user authentication
     from . import quiz_routes
     app.register_blueprint(auth_routes.auth)  # makes there routes
